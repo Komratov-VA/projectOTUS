@@ -1,0 +1,12 @@
+#server:
+#  port: 8082
+
+database:
+  driver: com.mysql.jdbc.Driver
+  url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3307/mysql}
+  username: ${SPRING_DATASOURCE_URL:myuser}
+  password: ${SPRING_DATASOURCE_URL:password}
+
+spring:
+  freemarker:
+    expose-request-attributes: true
