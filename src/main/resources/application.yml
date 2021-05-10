@@ -4,8 +4,8 @@
 database:
   driver: com.mysql.jdbc.Driver
   url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3307/mysql}
-  username: ${SPRING_DATASOURCE_URL:myuser}
-  password: ${SPRING_DATASOURCE_URL:password}
+  username: ${SPRING_DATASOURCE_USERNAME:myuser}
+  password: ${SPRING_DATASOURCE_PASSWORD:password}
 
 spring:
   freemarker:

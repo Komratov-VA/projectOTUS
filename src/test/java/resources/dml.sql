@@ -1,8 +1,8 @@
 create table client
 (
     id int auto_increment primary key ,
-    username text not null,
-    password text not null,
+    username VARCHAR(80) not null,
+    password VARCHAR(80) not null,
     active bool default true not null
 );
 
@@ -23,7 +23,7 @@ create table client_profile
     city text not null comment 'город',
     client_id int not null comment 'ключ в таблице client',
     constraint client_profile_pk
-        primary key (id_client_profile),
+        primary key (id),
     foreign key (client_id) references client (id)
 );
 
@@ -54,6 +54,11 @@ create table client_friends
 
 create unique index client_friends_id_uindex
     on client_friends (id);
+
+create unique index client_friends_client_profile_id_id_friends_uindex
+	on client_friends (client_profile_id, id_friends);
+
+
 
 
 
