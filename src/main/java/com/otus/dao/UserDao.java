@@ -46,6 +46,10 @@ public class UserDao {
     private static final String INSERT_CLIENT =
             "insert into client ( username, password) values(?,?);";
 
+    private static final String INSERT_CLIENT_PROFILE =
+            "insert into client_profile ( first_name, last_name, age, gender, city, client_id, hobby)" +
+                    " values(?,?,?,?,?,?,?);";
+
     private static final String INSERT_FRIENDS =
             "insert into client_friends ( client_profile_id, id_friends) values(?,?);";
 
@@ -70,6 +74,11 @@ public class UserDao {
 
     public void insertClient(Client client) {
         jdbcTemplate.update(INSERT_CLIENT, client.getUsername(), client.getPassword());
+    }
+
+    public void insertClientProfile(ClientProfile client, int id) {
+        jdbcTemplate.update(INSERT_CLIENT_PROFILE, client.getFirstName(),
+                client.getLastName(), client.getAge(), client.getGender().toString(), client.getCity(), id, client.getHobby());
     }
 
     public void insertFriends(int id, String idFriends) {

@@ -2,20 +2,22 @@
 #  port: 8082
 
 database:
-  driver: com.mysql.jdbc.Driver
+  driverClassName: com.mysql.cj.jdbc.Driver
   url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3307/mysql}
   username: ${SPRING_DATASOURCE_USERNAME:myuser}
   password: ${SPRING_DATASOURCE_PASSWORD:password}
+  testOnBorrow: true
+  validationQuery: SELECT 1
 
 spring:
   freemarker:
     expose-request-attributes: true
   datasource:
-    tomcat:
-      min-idle: 1
-      validation-query: select 1
-      validation-interval: 30000
-      remove-abandoned-timeout: 120
-      remove-abandoned: true
-      log-abandoned: true
+#    tomcat:
+#      min-idle: 1
+#      validation-query: select 1
+#      validation-interval: 30000
+#      remove-abandoned-timeout: 120
+#      remove-abandoned: true
+#      log-abandoned: true
    # git push heroku head

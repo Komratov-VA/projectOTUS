@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @Controller
@@ -36,8 +34,7 @@ public class MainController {
         Client clientInfo = (Client) o;
         ClientProfile clientProfile = userDao.loadProfileById(clientInfo.getId());
         if(Objects.isNull(clientProfile)) {
-            model.addAttribute("name", clientInfo.getUsername());
-            return "greeting";
+            return "redirect:/addInfo";
         }
         model.addAttribute("firstName", clientProfile.getFirstName());
         model.addAttribute("lastName", clientProfile.getLastName());
@@ -45,6 +42,7 @@ public class MainController {
         model.addAttribute("city", clientProfile.getCity());
         model.addAttribute("gender", clientProfile.getGender().getValue());
         model.addAttribute("hobby", clientProfile.getHobby());
+        clientInfo.setProfileId(clientProfile.getId());
 
         List<ClientProfile> listFriend = userDao.findFriendUser(clientProfile.getId());
         model.addAttribute("clientProfiles",listFriend);
@@ -71,8 +69,23 @@ public class MainController {
     public String add(@AuthenticationPrincipal Client client, @RequestParam String id, Model model)
     {
         System.out.println(id);
-        userDao.insertFriends(client.getId(), id);
+        userDao.insertFriends(client.getProfileId(), id);
         model.addAttribute("messages", "");
+        return "redirect:/";
+    }
+
+    @GetMapping("/addInfo")
+    public String addInfo(@AuthenticationPrincipal Client client, Model model)
+    {
+        model.addAttribute("name", client.getUsername());
+        return "/addInfo";
+    }
+
+    @PostMapping("/addInfo")
+    public String addI(ClientProfile clientProfile, @AuthenticationPrincipal Client client, Model model)
+    {
+        userDao.insertClientProfile(clientProfile, client.getId());
+        model.addAttribute("messages", "Информация успешно заполнена");
         return "redirect:/";
     }
 
