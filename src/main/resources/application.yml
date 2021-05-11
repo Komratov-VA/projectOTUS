@@ -12,12 +12,3 @@ database:
 spring:
   freemarker:
     expose-request-attributes: true
-  datasource:
-#    tomcat:
-#      min-idle: 1
-#      validation-query: select 1
-#      validation-interval: 30000
-#      remove-abandoned-timeout: 120
-#      remove-abandoned: true
-#      log-abandoned: true
-   # git push heroku head

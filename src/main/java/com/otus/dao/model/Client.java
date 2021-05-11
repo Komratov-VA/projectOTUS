@@ -1,14 +1,13 @@
 package com.otus.dao.model;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
 @Data
-public class Client implements UserDetails{
+public class Client implements UserDetails {
 
     private int id;
     private String username;
@@ -47,7 +46,6 @@ public class Client implements UserDetails{
     }
 
     private boolean isActive() {
-        System.out.println("active");
         return active;
     }
 

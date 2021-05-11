@@ -1,15 +1,16 @@
 package com.otus.dao.model;
 
 public enum Gender {
-   m("мужчина"),
-   w("женщина");
+    m("мужчина"),
+    w("женщина");
 
-   String value;
+    String value;
 
-   Gender(String value) {
-      this.value = value;
-   }
-   public String getValue() {
-      return value;
-   }
+    Gender(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

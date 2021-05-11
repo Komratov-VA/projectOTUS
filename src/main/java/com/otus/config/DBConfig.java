@@ -22,7 +22,6 @@ public class DBConfig {
     @Bean(name = "dataSource")
     @ConfigurationProperties(prefix = "database")
     public DataSource dataSource() {
-        System.out.println(url);
         return DataSourceBuilder.create().build();
     }
 

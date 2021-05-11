@@ -4,6 +4,6 @@
 <@c.page>
 Регистрация нового пользователя
 ${message!""}
-<@l.login "/registration"/>
+<@l.reg "/registration"/>
 <a href="/login">На страницу входа</a>
 </@c.page>

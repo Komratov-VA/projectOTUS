@@ -12,8 +12,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -53,20 +51,7 @@ public class UserDao {
     private static final String INSERT_FRIENDS =
             "insert into client_friends ( client_profile_id, id_friends) values(?,?);";
 
-
-    @PostConstruct
-    public void ee() throws SQLException {
-        System.out.println(jdbcTemplate.getDataSource().getConnection().getClientInfo());
-        System.out.println(jdbcTemplate.query("Select * from client;",
-                (resultSet, i) -> resultSet.getInt("id")));
-
-        System.out.println(loadClientByUsername("seva"));
-        System.out.println(loadClientByUsername("seva2"));
-        System.out.println(loadProfileById(1));
-    }
-
     public Client loadClientByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("load");
         List<Client> clients = jdbcTemplate
                 .query(SELECT_CLIENT_BY_NAME, new BeanPropertyRowMapper<>(Client.class), username);
         return DataAccessUtils.uniqueResult(clients);
@@ -85,7 +70,7 @@ public class UserDao {
         try {
             jdbcTemplate.update(INSERT_FRIENDS, id, idFriends);
         } catch (Exception e) {
-            System.out.println("дубль");
+            log.info("дубль");
         }
     }
 

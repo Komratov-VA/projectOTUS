@@ -27,13 +27,11 @@
     <#list clientProfiles as profile>
         <div>
             <b>Имя: ${profile.firstName}</b>
-<#--        <span>${message.text}</span>-->
             <b>Фамилий:${profile.lastName}</b>
             <b>Возраст: ${profile.age}</b>
             <b>Город: ${profile.city}</b>
             <b>Пол: ${profile.gender}</b>
             <b>Интересы: ${profile.hobby!""}</b>
-<#--            <strong>${message.autorName}</strong>-->
         </div>
         <#else>
         Вы ни на кого не подписаны

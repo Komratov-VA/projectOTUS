@@ -23,17 +23,16 @@ public class MainController {
     private final UserDao userDao;
 
     @GetMapping("/")
-//    public String greeting(@RequestParam(required = false,defaultValue = "") String filter,
-    public String firstPage(Model model){
-        Object o =SecurityContextHolder.getContext()
+    public String firstPage(Model model) {
+        Object o = SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();
-        if(o instanceof String) {
+        if (o instanceof String) {
             return "/login";
         }
         Client clientInfo = (Client) o;
         ClientProfile clientProfile = userDao.loadProfileById(clientInfo.getId());
-        if(Objects.isNull(clientProfile)) {
+        if (Objects.isNull(clientProfile)) {
             return "redirect:/addInfo";
         }
         model.addAttribute("firstName", clientProfile.getFirstName());
@@ -45,57 +44,41 @@ public class MainController {
         clientInfo.setProfileId(clientProfile.getId());
 
         List<ClientProfile> listFriend = userDao.findFriendUser(clientProfile.getId());
-        model.addAttribute("clientProfiles",listFriend);
+        model.addAttribute("clientProfiles", listFriend);
         return "profile";
     }
 
     @GetMapping("/search")
-    public String search(@RequestParam(required = false,defaultValue = "") String filter, Model model){
+    public String search(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
         List<ClientProfile> clientProfiles = null;
-        System.out.println("here " +filter);
-        if(filter !=null && !filter.isEmpty()) {
+        if (filter != null && !filter.isEmpty()) {
             clientProfiles = userDao.findByLastName(filter);
-        }
-        else {
+        } else {
             clientProfiles = Collections.emptyList();
         }
-        System.out.println(clientProfiles);
-        model.addAttribute("clientProfiles",clientProfiles);
+        model.addAttribute("clientProfiles", clientProfiles);
         model.addAttribute("filter", filter);
         return "search";
     }
 
     @PostMapping("/search")
-    public String add(@AuthenticationPrincipal Client client, @RequestParam String id, Model model)
-    {
-        System.out.println(id);
+    public String add(@AuthenticationPrincipal Client client, @RequestParam String id, Model model) {
         userDao.insertFriends(client.getProfileId(), id);
         model.addAttribute("messages", "");
         return "redirect:/";
     }
 
     @GetMapping("/addInfo")
-    public String addInfo(@AuthenticationPrincipal Client client, Model model)
-    {
+    public String addInfo(@AuthenticationPrincipal Client client, Model model) {
         model.addAttribute("name", client.getUsername());
         return "/addInfo";
     }
 
     @PostMapping("/addInfo")
-    public String addI(ClientProfile clientProfile, @AuthenticationPrincipal Client client, Model model)
-    {
+    public String addI(ClientProfile clientProfile, @AuthenticationPrincipal Client client, Model model) {
         userDao.insertClientProfile(clientProfile, client.getId());
         model.addAttribute("messages", "Информация успешно заполнена");
         return "redirect:/";
     }
 
-//    @PostMapping("filter")
-//    public String filter(@RequestParam String filter,
-//                         Map<String,Object> model)
-//    {
-//        Iterable<Message> messages;
-//
-//        model.put("messages",messages);
-//        return "main";
-//    }
 }

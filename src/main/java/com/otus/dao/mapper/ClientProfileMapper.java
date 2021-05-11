@@ -13,8 +13,7 @@ public class ClientProfileMapper implements RowMapper<ClientProfile> {
 
     @Override
     public ClientProfile mapRow(ResultSet rs, int rowNum) throws SQLException {
-        ClientProfile clientProfile
-                = new ClientProfile();
+        ClientProfile clientProfile = new ClientProfile();
         clientProfile.setId(rs.getInt("id"));
         clientProfile.setFirstName(rs.getString("first_name"));
         clientProfile.setLastName(rs.getString("last_name"));

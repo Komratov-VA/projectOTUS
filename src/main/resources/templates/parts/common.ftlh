@@ -1,4 +1,3 @@
-
 <#macro page>
 <!DOCTYPE html>
 <html lang="ru">

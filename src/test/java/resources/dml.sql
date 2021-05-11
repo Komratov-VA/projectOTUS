@@ -59,6 +59,10 @@ create unique index client_friends_client_profile_id_id_friends_uindex
 	on client_friends (client_profile_id, id_friends);
 
 
+ALTER DATABASE heroku_4a87725eeb589cb CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+ALTER TABLE client_profile CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
 
 
 
