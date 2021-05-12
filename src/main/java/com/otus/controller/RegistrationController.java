@@ -26,7 +26,7 @@ public class RegistrationController {
     public String addUser(Client client, Map<String, Object> model) {
         Client clientFromDb = userDao.loadClientByUsername(client.getUsername());
         if (clientFromDb != null) {
-            model.put("message", "User exists!");
+            model.put("message", "Такой пользователь уже существует!");
             return "registration";
         }
         client.setPassword(passwordEncoder.encode(client.getPassword()));

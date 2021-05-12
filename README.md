@@ -1,19 +1,7 @@
-mySQL(докер)
+приложение Вконнекте
 
-docker запуск на 3307
-docker run -p 3307:3306 --name=mysqlOtus -d mysql/mysql-server:8.0.21
-
-смотрим логи для пароля 
-docker logs mysqlOtus
-
-подключаемся
-docker exec -it mysqlOtus mysql -uroot -p    
-
-меняем пароль 
-ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';
-чтобы подключаться с localhost к докеру нужно изменить конфиг mysql(0.0.0.0)
-или сделать
-CREATE USER 'myuser'@'%' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON *.* TO 'myuser'@'%';
-
-подключаемся с помощью myuser из idea к докер образу
+/registration - регистрируемся, далеее нас перенаправляет на форму входа
+/login - входим
+/addInfo - добавляем информацию о себе если еще не добавили(редактирования пока нет)
+/profile - ваша информация + окно поиска друзей(по фамилии), ниже ваши подписчики
+/search - окно результата поиска с позможностью добавлнеия в подписчики
