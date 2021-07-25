@@ -17,3 +17,32 @@ CREATE USER 'myuser'@'%' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON *.* TO 'myuser'@'%';
 
 подключаемся с помощью myuser из idea к докер образу
+
+в контейнер
+docker exec -it some-mysql bash
+
+docker cp  mysqlOtus:data-dump.sql /Users/user/Desktop/sert
+docker cp /Users/user/Desktop/sert/data-dump.sql mysqlOtus:
+mysqldump  -p -u root mysql > data-dump.sql
+
+mysqldump  -p -u root mysql < data-dump.sql
+Но при восстановлении данных в базу данных вам нужно использовать только «mysql»:
+
+mysql -u user -p Database_name < SQL_dump_file.sql
+
+master
+docker run -p 3308:3308 --name=master -v /Users/user/:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=password -d mysql/mysql-server:8.0.21
+
+docker run -p 3308:3308 --name=master -e MYSQL_ROOT_PASSWORD=password -d mysql/mysql-server:8.0.21
+
+kafka(докер) открываем в терминале /Users/user/Desktop/мои проекты/projectOTUS/src/docker/kafka/docker-compose.yml
+ путь до файла
+ далее:
+docker-compose up -d
+проверка:
+nc -z localhost 22181
+ nc -z localhost 29092
+docker-compose logs kafka | grep -i started
+
+далее скачиваем https://kafkatool.com/download.html
+и настраиваем там создаем топики и наблюдаем за процессом

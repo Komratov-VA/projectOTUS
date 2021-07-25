@@ -9,7 +9,8 @@
 <form method="post">
     <#list clientProfiles as profile>
         <div>
-            <input type="radio" name=id value="${profile.id}">
+            <input type="checkbox" name=id value="${profile.id}">
+            <b>id: ${profile.id}</b>
             <b>Имя: ${profile.firstName}</b>
             <b>Фамилий:${profile.lastName}</b>
             <b>Возраст: ${profile.age}</b>

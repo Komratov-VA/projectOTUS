@@ -1,14 +1,38 @@
-#server:
-#  port: 8082
-
 database:
   driverClassName: com.mysql.cj.jdbc.Driver
   url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3307/mysql}
+#  urlSlave: ${SPRING_DATASOURCE_URL:jdbc:mysql://35.210.243.54:3307/mysql}
   username: ${SPRING_DATASOURCE_USERNAME:myuser}
   password: ${SPRING_DATASOURCE_PASSWORD:password}
   testOnBorrow: true
   validationQuery: SELECT 1
 
+#databaseSLAVE:
+#  driverClassName: com.mysql.cj.jdbc.Driver
+#  url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3307/mysql}
+#  username: ${SPRING_DATASOURCE_USERNAME:myuser}
+#  password: ${SPRING_DATASOURCE_PASSWORD:password}
+#  testOnBorrow: true
+#  validationQuery: SELECT 1
+
 spring:
+  kafka:
+    bootstrap-servers: ${CLOUDKARAFKA_BROKERS:localhost:29092}
+    security.protocol: ${SASL_SSL:}
+    sasl:
+      mechanism: ${SCRAM-SHA-256:}
+      jaas.config: ${CLOUDKARAFKA_CA:} required username=${CLOUDKARAFKA_USERNAME:} password=${CLOUDKARAFKA_PASSWORD:};
+    consumer:
+      max-poll-records: 10
+      topic: ${CLOUDKARAFKA_TOPIC_PREFIXdefault:post}default # имя топика для постов
+      group-id: post # groupId kafka listener у каждого поднятого пода/инстанса свой
+    producer:
+      topic: ${CLOUDKARAFKA_TOPIC_PREFIXdefault:post}default #
+  goFake: false
   freemarker:
     expose-request-attributes: true
+#server:
+#  port: 8081
+
+cache:
+  elements: 1000

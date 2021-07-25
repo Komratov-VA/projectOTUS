@@ -63,6 +63,17 @@ ALTER DATABASE heroku_4a87725eeb589cb CHARACTER SET utf8 COLLATE utf8_unicode_ci
 
 ALTER TABLE client_profile CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
+//очереди
+
+create table client_post
+(
+    id int auto_increment primary key ,
+    client_id int not null comment 'ключ в таблице client',
+    post text not null comment 'пост пользователя',
+    create_date datetime default now() not null,
+    foreign key (client_id) references client (id)
+);
+
 
 
 

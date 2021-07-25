@@ -17,6 +17,8 @@ public class DBConfig {
 
     @Value("${database.url}")
     String url;
+//    @Value("${database.urlSlave}")
+//    String urlSlave;
 
     @Primary
     @Bean(name = "dataSource")
@@ -25,8 +27,20 @@ public class DBConfig {
         return DataSourceBuilder.create().build();
     }
 
+//    @Primary
+//    @Bean(name = "dataSource")
+//    @ConfigurationProperties(prefix = "database")
+//    public DataSource dataSourceSlave() {
+//        return DataSourceBuilder.create().url(urlSlave).build();
+//    }
+
     @Bean
     public JdbcTemplate jdbcTemplate() {
         return new JdbcTemplate(dataSource());
     }
+
+//    @Bean
+//    public JdbcTemplate jdbcTemplateSlave() {
+//        return new JdbcTemplate(dataSourceSlave());
+//    }
 }

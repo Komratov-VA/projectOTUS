@@ -14,6 +14,8 @@ public class Client implements UserDetails {
     private String password;
     private boolean active;
     private int profileId;
+    private String firstName;
+    private String lastName;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

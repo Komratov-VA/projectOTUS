@@ -14,7 +14,10 @@
 
 
 <form method="get" action="/search">
+    <div>Имя:</div>
     <input type="text" name="filter" value="${filter!""}">
+    <div>Фамилия:</div>
+    <input type="text" name="filter2" value="${filter2!""}">
     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
     <button type="submit">Найти</button>
 </form>
@@ -35,6 +38,22 @@
         </div>
         <#else>
         Вы ни на кого не подписаны
+    </#list>
+    <@l.post/>
+
+    <form method="post" action="/profile">
+        <div>Ваш пост:</div>
+        <input type="text" name="postClient" value="${postClient!""}">
+        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+        <button type="submit">Добавить пост</button>
+    </form>
+
+    <#list listPostUser as post>
+        <div>
+            <b>Пост: ${post}</b>
+        </div>
+    <#else>
+        Вы пока еще не постили постов
     </#list>
 
 <@l.logout/>

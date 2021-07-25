@@ -29,3 +29,10 @@
         <input type="submit" value="На страницу профиля"/>
     </form>
 </#macro>
+
+<#macro post>
+    <form action="/post" method="get">
+        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+        <input type="submit" value="Просмотреть посты моих друзей"/>
+    </form>
+</#macro>
