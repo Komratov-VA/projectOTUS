@@ -18,16 +18,16 @@ database:
 spring:
   kafka:
     bootstrap-servers: ${CLOUDKARAFKA_BROKERS:localhost:29092}
-    security.protocol: ${SASL_SSL:}
+    security.protocol: SASL_SSL
     sasl:
-      mechanism: ${SCRAM-SHA-256:}
-      jaas.config: ${CLOUDKARAFKA_CA:} required username=${CLOUDKARAFKA_USERNAME:} password=${CLOUDKARAFKA_PASSWORD:};
+      mechanism: SCRAM-SHA-256
+      jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required username="${CLOUDKARAFKA_USERNAME}" password="${CLOUDKARAFKA_PASSWORD}";
     consumer:
       max-poll-records: 10
-      topic: ${CLOUDKARAFKA_TOPIC_PREFIXdefault:post}default # имя топика для постов
-      group-id: post # groupId kafka listener у каждого поднятого пода/инстанса свой
+      topic: ${CLOUDKARAFKA_TOPIC_PREFIX:post}default # имя топика для постов
+      group-id: ${CLOUDKARAFKA_USERNAME}-consumers # groupId kafka listener у каждого поднятого пода/инстанса свой
     producer:
-      topic: ${CLOUDKARAFKA_TOPIC_PREFIXdefault:post}default #
+      topic: ${CLOUDKARAFKA_TOPIC_PREFIX:post}default #
   goFake: false
   freemarker:
     expose-request-attributes: true
