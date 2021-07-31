@@ -7,6 +7,7 @@ import com.otus.dao.model.ClientProfile;
 import com.otus.dao.model.FriendsPost;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.support.DataAccessUtils;
@@ -44,9 +45,17 @@ public class UserDao {
             + "\nFROM " + "client_profile"
             + " WHERE " + "last_name" + " = ? ";
 
-    private static final String SELECT_CLIENT_PROFILE_BY_LAST_NAME_LIKE = "SELECT * "
+    private static final String SELECT_CLIENT_PROFILE_BY_LAST_NAME_FIRST_LIKE = "SELECT * "
             + "\nFROM " + "client_profile"
             + " WHERE " + "first_name like " + " ?" + " and last_name like " + " ? order by id";
+
+    private static final String SELECT_CLIENT_PROFILE_BY_LAST_NAME_LIKE = "SELECT * "
+            + "\nFROM " + "client_profile"
+            + " WHERE " + "last_name like " + " ? order by id";
+
+    private static final String SELECT_CLIENT_PROFILE_BY_FIRST_NAME_LIKE = "SELECT * "
+            + "\nFROM " + "client_profile"
+            + " WHERE " + "first_name like " + " ?" + " order by id";
 
 
     private static final String SELECT_POST_CLIENT_FRIEND = "SELECT first_name, last_name, post "
@@ -109,8 +118,17 @@ public class UserDao {
     }
 
     public List<ClientProfile> findByLastName(String firstName, String lastName) {
+        if(StringUtils.isEmpty(firstName))
+        {
+            return jdbcTemplate
+                    .query(SELECT_CLIENT_PROFILE_BY_LAST_NAME_LIKE, clientProfileMapper,  lastName + "%");
+
+        } else if (StringUtils.isEmpty(lastName)) {
+            return jdbcTemplate
+                    .query(SELECT_CLIENT_PROFILE_BY_FIRST_NAME_LIKE, clientProfileMapper, firstName + "%");
+        }
         List<ClientProfile> clients = jdbcTemplate
-                .query(SELECT_CLIENT_PROFILE_BY_LAST_NAME_LIKE, clientProfileMapper, firstName + "%", lastName + "%");
+                .query(SELECT_CLIENT_PROFILE_BY_LAST_NAME_FIRST_LIKE, clientProfileMapper, firstName + "%", lastName + "%");
         return clients;
     }
 

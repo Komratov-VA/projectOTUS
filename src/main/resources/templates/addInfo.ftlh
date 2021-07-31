@@ -6,9 +6,9 @@
     <div>
         <form method="post">
             <p><b>Ваша фамилия</b><Br>
-                <input required type="text" name="firstName" placeholder="обязательное поле"/>
-            </p><p><b>Ваше Имя</b><Br>
                 <input required type="text" name="lastName" placeholder="обязательное поле"/>
+            </p><p><b>Ваше Имя</b><Br>
+                <input required type="text" name="firstName" placeholder="обязательное поле"/>
             </p><p><b>Ваш возраст</b><Br>
                 <input required type="text" size="40" name="age" pattern="[0-9]{0,3}" placeholder="обязательное поле, формат до 3 знаков"/>
             </p><p><b>Ваш город</b><Br>
